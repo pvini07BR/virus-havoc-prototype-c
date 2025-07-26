@@ -5,6 +5,7 @@
 #include <raylib.h>
 #include <rlgl.h>
 #include <raymath.h>
+#include <stdlib.h>
 
 const Vector2 GUN_ANCHOR = {3, 15};
 const float HITBOX_RADIUS = 19.0f;
@@ -18,7 +19,7 @@ void player_init(Player* player, Vector2 pos) {
     player->gun_index = 0;
 
     player->guns[0] = get_gun(0);
-    player->guns[1] = get_gun(1);
+    player->guns[1] = NULL;
 
     player->tex = LoadTexture("assets/sprites/player.png");
 }

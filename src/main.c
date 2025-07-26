@@ -57,14 +57,18 @@ int main() {
         player_draw(&player);
 
         EndMode2D();
-
+        
         if (info) free(info);
+        const char* gunName = NULL;
+        if (get_player_equipped_gun(&player) != NULL) {
+            gunName = get_player_equipped_gun(&player)->name;
+        }
         info = formatted_string(
             "FPS: %d\nBullets: %d/%d\nEquipped gun: %s",
             GetFPS(),
             bulletManager.active_bullet_count,
             MAX_BULLETS,
-            get_player_equipped_gun(&player)->name
+            gunName
         );
         DrawText(info, 0, 0, 20, WHITE);
 
