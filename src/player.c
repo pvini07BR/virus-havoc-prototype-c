@@ -1,4 +1,5 @@
 #include "player.h"
+#include "defines.h"
 #include "gun_manager.h"
 
 #include <raylib.h>
@@ -6,6 +7,7 @@
 #include <raymath.h>
 
 const Vector2 GUN_ANCHOR = {3, 15};
+const float HITBOX_RADIUS = 19.0f;
 
 void player_init(Player* player, Vector2 pos) {
     if (!player) return;
@@ -32,6 +34,12 @@ void player_update(Player* player, BulletManager* bm) {
 
     player->position.x += player->velocity.x * GetFrameTime();
     player->position.y += player->velocity.y * GetFrameTime();
+
+    if ((player->position.x + HITBOX_RADIUS) > WINDOW_WIDTH) player->position.x = WINDOW_WIDTH - HITBOX_RADIUS;
+    if ((player->position.x - HITBOX_RADIUS) < 0.0f) player->position.x = HITBOX_RADIUS;
+
+    if ((player->position.y + HITBOX_RADIUS) > WINDOW_HEIGHT) player->position.y = WINDOW_HEIGHT - HITBOX_RADIUS;
+    if ((player->position.y - HITBOX_RADIUS) < 0.0f) player->position.y = HITBOX_RADIUS;
 
     if (IsKeyDown(KEY_SPACE)) {
         Vector2 origin = Vector2Add(player->position, GUN_ANCHOR);
